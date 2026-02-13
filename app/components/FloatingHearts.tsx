@@ -29,12 +29,12 @@ const positions = [
     { bottom: "40%", right: "30%", layer: 1 },
 ];
 
-export default function FloatingHearts() {
+export default function FloatingHearts({ enabled = true }: { enabled?: boolean }) {
     const containerRef = useRef<HTMLDivElement>(null);
     const mouseRef = useRef({ x: 0, y: 0 });
 
     useEffect(() => {
-        if (!containerRef.current) return;
+        if (!enabled || !containerRef.current) return;
 
         const symbols = containerRef.current.querySelectorAll(".love-symbol");
         const cleanupFns: (() => void)[] = [];
@@ -110,7 +110,7 @@ export default function FloatingHearts() {
             gsap.killTweensOf(symbols);
             cleanupFns.forEach((fn) => fn());
         };
-    }, []);
+    }, [enabled]);
 
     return (
         <div ref={containerRef} className="absolute inset-0 pointer-events-none overflow-hidden">

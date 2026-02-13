@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
-export default function GiftReveal({ children }: { children: React.ReactNode }) {
+export default function GiftReveal({ children, onFinish }: { children: React.ReactNode; onFinish?: () => void }) {
     const [isOpened, setIsOpened] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const leftCurtainRef = useRef<HTMLDivElement>(null);
@@ -18,6 +18,7 @@ export default function GiftReveal({ children }: { children: React.ReactNode }) 
         const tl = gsap.timeline({
             onComplete: () => {
                 setIsOpened(true);
+                if (onFinish) onFinish();
             },
         });
 
@@ -25,20 +26,20 @@ export default function GiftReveal({ children }: { children: React.ReactNode }) 
         tl.to(buttonRef.current, {
             scale: 0,
             opacity: 0,
-            duration: 0.5,
+            duration: 0.4,
             ease: "back.in(1.7)",
         });
 
         // Open curtains
         tl.to(leftCurtainRef.current, {
             xPercent: -100,
-            duration: 1.5,
+            duration: 1.0,
             ease: "power2.inOut",
         }, "open");
 
         tl.to(rightCurtainRef.current, {
             xPercent: 100,
-            duration: 1.5,
+            duration: 1.0,
             ease: "power2.inOut",
         }, "open");
 
@@ -46,15 +47,15 @@ export default function GiftReveal({ children }: { children: React.ReactNode }) 
         tl.to(containerRef.current, {
             opacity: 0,
             pointerEvents: "none",
-            duration: 0.5,
-            delay: 0.5
-        }, "open+=0.5");
+            duration: 0.4,
+            delay: 0.3
+        }, "open+=0.4");
 
         // Animate content in
         tl.fromTo(contentRef.current,
             { opacity: 0, scale: 0.95 },
-            { opacity: 1, scale: 1, duration: 1, ease: "power2.out" },
-            "-=1"
+            { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" },
+            "-=0.6"
         );
 
         // CLEAR transform so fixed children work relative to viewport

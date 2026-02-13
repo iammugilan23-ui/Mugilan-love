@@ -6,7 +6,7 @@ import HeartRibbon from "@/app/components/HeartRibbon";
 import LoveParticles from "@/app/components/LoveParticles";
 import ScrollProgress from "@/app/components/ScrollProgress";
 import FloatingHearts from "@/app/components/FloatingHearts";
-import ClickHearts from "@/app/components/ClickHearts";
+
 import Image from "next/image";
 import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
@@ -17,19 +17,90 @@ gsap.registerPlugin(ScrollTrigger);
 
 /* ────── Data ────── */
 const memories = [
-  { src: "/uploads/memories/memory-1.jpg", title: "First Date", desc: "The coffee shop where it all began.", tag: "Where it started ☕" },
-  { src: "/uploads/memories/memory-2.png", title: "Paris Trip", desc: "Lost in the city of love.", tag: "City of Love 🗼" },
-  { src: "/uploads/memories/memory-3.jpg", title: "Beach Sunset", desc: "Walking hand in hand by the ocean.", tag: "Golden Hour 🌅" },
-  { src: "/uploads/memories/memory-4.jpg", title: "Cozy Nights", desc: "Warm blankets and endless conversations.", tag: "Our Happy Place 🏠" },
-  // { src: "/uploads/memories/memory-5.jpg", title: "Mountain Adventure", desc: "Conquering peaks together.", tag: "On Top of the World 🏔️" },
-  // { src: "/uploads/memories/memory-6.jpg", title: "Stargazing", desc: "Counting stars and making wishes.", tag: "Under the Stars ✨" },
+  {
+    src: "/uploads/memories/memory-1.jpg",
+    title: "Two Years of Us",
+    desc: "Celebrating our second birthday with smiles, laughter, and unforgettable love.",
+    tag: "Second Birthday Celebration 🎂"
+  },
+  {
+    src: "/uploads/memories/memory-2.png",
+    title: "Our First Long Journey",
+    desc: "Miles passed, hearts closer — our first long travel together full of love.",
+    tag: "First Long Travel 🌍"
+  },
+  {
+    src: "/uploads/memories/memory-3.jpg",
+    title: "Ride of Love",
+    desc: "Our first bike ride together, wrapped in wind, kisses, and happiness.",
+    tag: "First Bike Ride 🏍️"
+  },
+  {
+    src: "/uploads/memories/memory-4.jpg",
+    title: "After So Long",
+    desc: "Meeting after a long time, sharing warmth, words, and silent emotions.",
+    tag: "Long Time No See 💞"
+  },
+  // {
+  //   src: "/uploads/memories/memory-5.jpg",
+  //   title: "Birthday to Remember",
+  //   desc: "A birthday that became unforgettable because it had you and me.",
+  //   tag: "Unforgettable Moments 🎉"
+  // },
+  // {
+  //   src: "/uploads/memories/memory-6.jpg",
+  //   title: "Together We Achieved",
+  //   desc: "Standing proud after achieving our goals, side by side, stronger than ever.",
+  //   tag: "Shared Success 🌟"
+  // },
+  // {
+  //   src: "/uploads/memories/memory-7.jpg",
+  //   title: "Last College Frame",
+  //   desc: "Our final college picture — memories captured forever in one frame.",
+  //   tag: "Beautiful Pair 💑"
+  // },
+  // {
+  //   src: "/uploads/memories/memory-8.jpg",
+  //   title: "Birthday Fight & Love",
+  //   desc: "Even fights became memories, because love always won in the end.",
+  //   tag: "Cute Angry Moments 😤❤️"
+  // }
 ];
 
+
 const songs = [
-  { title: "Nee Partha Paarvai", artist: "Mugilan", duration: "4:23", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-  { title: "A Thousand Years", artist: "Christina Perri", duration: "4:45", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
-  { title: "All of Me", artist: "John Legend", duration: "4:29", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
-  { title: "Thinking Out Loud", artist: "Ed Sheeran", duration: "4:41", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" },
+  {
+    title: "Main Video Message",
+    artist: "From Me to You",
+    duration: "Message",
+    src: "", // Not used for youtube logic
+    videoId: "BhD6fSUN5Xc",
+    start: 50
+  },
+  {
+    title: "Audio 1",
+    artist: "Romantic Melody",
+    duration: "Memories",
+    src: "",
+    videoId: "wAFpoKMfac4",
+    start: 123
+  },
+  {
+    title: "Audio 2",
+    artist: "Love Vibes",
+    duration: "Forever",
+    src: "",
+    videoId: "4Bsc2uI_LsM",
+    start: 124
+  },
+  {
+    title: "Audio 3",
+    artist: "Heartbeats",
+    duration: "Us",
+    src: "",
+    videoId: "2hBZTzopw7w",
+    start: 30
+  }
 ];
 
 const futurePlans = [
@@ -39,28 +110,67 @@ const futurePlans = [
 ];
 
 const mysteryMessages = [
-  { title: "Surprise #1", hint: "A special gift waiting for you", content: "I booked us a table at your favorite restaurant tonight! 🍷" },
-  { title: "Surprise #2", hint: "100 reasons why I love you", content: "Check your email for a digital book I made for you. 📖" },
-  { title: "Surprise #3", hint: "Our journey in numbers", content: "We've been together for 848 days, and I've loved every second. ⏳" },
-  { title: "Surprise #4", hint: "Hidden photo gallery", content: "Look under the bed... there's a physical album waiting! 📸" },
+  {
+    title: "Promise of Our Tomorrow",
+    hint: "Not today, but forever",
+    content: "I promise to build a life with you — a home full of love, laughter, and dreams. 🏡❤️"
+  },
+  {
+    title: "Promise Written in Words",
+    hint: "Every reason my heart chose you",
+    content: "I created a digital book with 100 reasons why I love you — check your email. 📖💌"
+  },
+  {
+    title: "Promise in Time",
+    hint: "Our love measured in moments",
+    content: "We've spent 1775 beautiful days together, and every second meant everything to me. ⏳❤️"
+  },
+  {
+    title: "Promise You Can Touch",
+    hint: "A memory hidden nearby",
+    content: "There’s a physical photo album waiting for you — a surprise from my heart. 📸✨"
+  }
 ];
 
+
 const stats = [
-  { label: "Days Together", value: 847, sub: "And counting forever" },
-  { label: "Photos Taken", value: 1293, sub: "Captured memories" },
-  { label: "Love Letters", value: 156, sub: "Written from the heart" },
-  { label: "Adventures", value: 42, sub: "With many more to come" },
+  {
+    label: "Days of Togetherness",
+    value: 1775,
+    sub: "Every day written in love"
+  },
+  {
+    label: "Hours of Love",
+    value: 42600,
+    sub: "Moments that shaped our story"
+  },
+  {
+    label: "Minutes of Memories",
+    value: 2556000,
+    sub: "Each minute held your smile"
+  },
+  {
+    label: "Seconds of Forever",
+    value: 153360000,
+    sub: "Every second, I chose you"
+  }
 ];
+
 
 export default function Home() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const arrowRef = useRef<HTMLDivElement>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  // const audioRef = useRef<HTMLAudioElement>(null); // No longer needed
   const [revealedMessages, setRevealedMessages] = useState<number[]>([]);
   const [previewIdx, setPreviewIdx] = useState<number | null>(null);
   const [showVideo, setShowVideo] = useState(false);
   const [currentSong, setCurrentSong] = useState<number | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  // We use currentSong index to determine which video to play. 0 is default main video.
+  const [videoId, setVideoId] = useState("BhD6fSUN5Xc");
+  const [videoStart, setVideoStart] = useState(50);
+
+  const [isPlaying, setIsPlaying] = useState(false); // Used to toggle visual state of list
+  const [giftOpened, setGiftOpened] = useState(false);
 
   const toggleMessage = (index: number) => {
     if (revealedMessages.includes(index)) {
@@ -71,19 +181,17 @@ export default function Home() {
   };
 
   const playSong = (index: number) => {
-    if (currentSong === index) {
-      if (isPlaying) {
-        audioRef.current?.pause();
-        setIsPlaying(false);
-      } else {
-        audioRef.current?.play();
-        setIsPlaying(true);
-      }
-    } else {
-      setCurrentSong(index);
-      setIsPlaying(true);
-      // Timeout to allow state update before play
-      setTimeout(() => audioRef.current?.play(), 0);
+    const song = songs[index];
+    setVideoId(song.videoId);
+    setVideoStart(song.start);
+    setCurrentSong(index);
+    setIsPlaying(true);
+    setShowVideo(true);
+
+    // Scroll to video section if not already obvious
+    const videoSection = document.querySelector(".fade-up");
+    if (videoSection) {
+      videoSection.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   };
 
@@ -105,7 +213,7 @@ export default function Home() {
 
     gsap.fromTo(".hero-subtitle", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: 1, ease: "power3.out" });
     gsap.fromTo(".hero-description", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: 1.3, ease: "power3.out" });
-    gsap.fromTo(".hero-icon", { scale: 0, rotation: -180 }, { scale: 1, rotation: 0, duration: 1.2, ease: "elastic.out(1, 0.4)", delay: 0.1 });
+    gsap.fromTo(".hero-icon", { scale: 0, rotation: -180 }, { scale: 1, rotation: 0, duration: 0.8, ease: "elastic.out(1, 0.4)", delay: 0.1 });
 
     if (arrowRef.current) {
       gsap.to(arrowRef.current, { y: 10, duration: 1, repeat: -1, yoyo: true, ease: "sine.inOut" });
@@ -156,6 +264,13 @@ export default function Home() {
     });
 
     // Counter animation
+    const formatNumber = (num: number): string => {
+      if (num >= 1000000000) return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'b';
+      if (num >= 1000000) return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'm';
+      if (num >= 1000) return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+      return num.toString();
+    };
+
     const counterEls = document.querySelectorAll(".counter-value");
     counterEls.forEach((el, i) => {
       const target = stats[i]?.value || 0;
@@ -163,7 +278,10 @@ export default function Home() {
       gsap.to(obj, {
         val: target, duration: 2, ease: "power2.out",
         scrollTrigger: { trigger: ".counter-section", start: "top 80%" },
-        onUpdate: () => { (el as HTMLElement).textContent = Math.floor(obj.val).toLocaleString(); },
+        onUpdate: () => {
+          // Animate the raw number but display formatted
+          (el as HTMLElement).textContent = formatNumber(Math.floor(obj.val));
+        },
       });
     });
 
@@ -184,19 +302,19 @@ export default function Home() {
   };
 
   return (
-    <GiftReveal>
+    <GiftReveal onFinish={() => setGiftOpened(true)}>
       <div className="min-h-screen bg-[#FFF5F7]">
         <Navigation />
-        <LoveParticles variant="hearts" />
+        <LoveParticles variant="hearts" enabled={giftOpened} />
         <ScrollProgress />
-        <ClickHearts />
+
 
         {/* ═══════════════════ SECTION 1: HOME ═══════════════════ */}
         <section id="home" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-[#FF1744] via-[#FF4081] to-[#E91E63]">
             <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-20" />
           </div>
-          <FloatingHearts />
+          <FloatingHearts enabled={giftOpened} />
 
           {/* Heart with only title inside */}
           <div className="relative z-10 flex justify-center hero-icon mb-4 mt-4">
@@ -454,55 +572,69 @@ export default function Home() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8">
               <h2 className="font-script text-4xl md:text-6xl text-[#FF1744] mb-4 drop-shadow-sm">To My Dearest Love</h2>
-              <p className="text-lg md:text-xl text-[#7D5A5E] font-sans">February 14, 2024</p>
+              <p className="text-lg md:text-xl text-[#7D5A5E] font-sans">February 14, 2026</p>
             </div>
 
             <HeartRibbon sectionId="love-letter" title="My Love Letter">
-              <article className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl p-6 md:p-16 border border-red-50 mt-8">
-                <div className="space-y-6 text-lg leading-relaxed font-serif text-[#2D1B1F]">
-                  <p className="text-3xl font-script text-[#FF4081] mb-8 letter-para">My Beloved,</p>
-
-                  <p className="letter-para">
-                    As I sit down to write these words, my heart feels so full that I wonder if simple language can ever truly capture what I feel for you. Yet, I must try, because you deserve to know the depth of my love and the profound impact you&apos;ve had on my life.
-                  </p>
-
-                  <div className="flex justify-center py-2 heart-divider-el"><span className="heart-divider text-[#FF4081] text-xl inline-block">♥</span></div>
-
-                  <p className="letter-para">
-                    From the moment we met, something inside me shifted. It was as if the universe had been waiting for that exact moment to show me what true connection feels like. Your smile became my sunrise, your laughter the soundtrack to my happiest days, and your presence the home I never knew I was searching for.
+              <article className="bg-white/90 backdrop-blur-md rounded-3xl shadow-xl p-6 md:p-16 border border-red-50 mt-8 w-full transition-all duration-300">
+                <div className="space-y-6 md:space-y-8 text-base md:text-xl leading-relaxed md:leading-loose font-serif text-[#2D1B1F] text-justify">
+                  <p className="text-3xl font-script text-[#FF4081] mb-8 letter-para">
+                    My Dearest Madam Ji, My Cutie Pie ❤️
                   </p>
 
                   <p className="letter-para">
-                    You have this incredible way of making the ordinary feel extraordinary. A simple walk becomes an adventure when I&apos;m with you. A quiet evening at home transforms into the most precious moment of my week. You&apos;ve taught me that love isn&apos;t just about the grand gestures—it&apos;s in the way you remember how I take my coffee, in the gentle touch of your hand when I&apos;m stressed, in the way you look at me like I&apos;m the only person in the world.
+                    Happy Valentine’s Day, my everything 🫂
+                    <br />
+                    For everyone, today is just Valentine’s Day…
+                    <br />
+                    But for me, every day is about you.
                   </p>
 
-                  <div className="flex justify-center py-2 heart-divider-el"><span className="heart-divider text-[#FF4081] text-xl inline-block">✿</span></div>
+                  <div className="flex justify-center py-2 heart-divider-el">
+                    <span className="heart-divider text-[#FF4081] text-xl inline-block">♥</span>
+                  </div>
 
                   <p className="letter-para">
-                    I love how you dream with your whole heart and chase those dreams with unwavering determination. I love your kindness, the way you see the good in people even when it&apos;s hard to find. I love your strength, how you face challenges with grace and courage. I love your quirks, your spontaneous dance moves in the kitchen, the way you sing off-key but with complete confidence.
+                    As far as I’m concerned, you are my world —
+                    <br />
+                    My cutie pie, my everything, my mentor, my strength.
+                    <br />
+                    If you are not there, I feel like I am nothing. That’s how important you are to me.
+                  </p>
+
+                  <div className="flex justify-center py-2 heart-divider-el">
+                    <span className="heart-divider text-[#FF4081] text-xl inline-block">✿</span>
+                  </div>
+
+                  <p className="letter-para">
+                    We may face anything in life — ups and downs, challenges, misunderstandings — but we will fix everything together. Like we always say, we’ll sort it out and stay strong.
+                    <br /><br />
+                    And one thing I promise you, again and again —
+                    <br />
+                    I will always be there for you.
+                  </p>
+
+                  <div className="flex justify-center py-2 heart-divider-el">
+                    <span className="heart-divider text-[#FF4081] text-xl inline-block">♥</span>
+                  </div>
+
+                  <p className="letter-para">
+                    You focus on your dreams, my chellam. Chase them with full confidence. I’ll stand beside you, support you, motivate you, and cheer for you in every step. Your success is my happiness. Your smile is my peace.
                   </p>
 
                   <p className="letter-para">
-                    You&apos;ve made me a better person. With you, I&apos;ve learned to be more patient, more understanding, more open with my feelings. You&apos;ve created a safe space where I can be completely myself, vulnerabilities and all, without fear of judgment. That gift is more precious than you could ever know.
+                    If you are happy here, I am happy too.
+                    <br />
+                    Because for me, it has always been…
+                    <br />
+                    You + Me ❤️
                   </p>
 
-                  <div className="flex justify-center py-2 heart-divider-el"><span className="heart-divider text-[#FF4081] text-xl inline-block">♥</span></div>
-
-                  <p className="letter-para">
-                    There are moments when I look at you and I&apos;m overwhelmed by gratitude. Gratitude that in this vast world, our paths crossed. Gratitude for every conversation we&apos;ve shared, every obstacle we&apos;ve overcome together, every memory we&apos;ve created.
+                  <p className="text-3xl font-script text-[#FF4081] mt-12 letter-para">
+                    Once again, wishing my Chellam Madam Ji a very Happy Valentine’s Day.
+                    <br />
+                    Forever yours 💌✨
                   </p>
-
-                  <p className="letter-para">
-                    I want you to know that my love for you isn&apos;t just a feeling—it&apos;s a choice I make every single day. Through every season of life, through every challenge that may come our way, I choose you. Always.
-                  </p>
-
-                  <div className="flex justify-center py-2 heart-divider-el"><span className="heart-divider text-[#FF4081] text-xl inline-block">✧</span></div>
-
-                  <p className="letter-para">
-                    You are my best friend, my confidant, my greatest adventure, and my safest harbor all at once. You are the answer to questions I didn&apos;t know to ask, the dream I didn&apos;t dare to dream. You are, quite simply, everything.
-                  </p>
-
-                  <p className="text-3xl font-script text-[#FF4081] mt-12 letter-para">Forever and always yours,</p>
 
                   <div className="mt-8 flex items-center justify-center gap-4 opacity-50">
                     <div className="w-20 h-px bg-[#FF1744]" />
@@ -512,6 +644,7 @@ export default function Home() {
                 </div>
               </article>
             </HeartRibbon>
+
           </div>
         </section>
 
@@ -531,7 +664,7 @@ export default function Home() {
             <HeartRibbon sectionId="surprise" title="Your Surprise">
               {/* Video */}
               {/* Video with Facade Pattern */}
-              <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12 mb-16 fade-up mt-8">
+              <div className="bg-white rounded-3xl shadow-xl p-3 md:p-12 mb-16 fade-up mt-8">
                 <div className="text-center mb-8">
                   <h3 className="text-3xl font-bold text-[#2D1B1F] mb-2 font-sans">A Message From My Heart</h3>
                   <p className="text-[#7D5A5E] font-sans">Press play when you&apos;re ready</p>
@@ -541,7 +674,7 @@ export default function Home() {
                     <iframe
                       width="100%"
                       height="100%"
-                      src="+"
+                      src={`https://www.youtube.com/embed/${videoId}?autoplay=1&start=${videoStart}`}
                       title="Our Love Story Video"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -577,16 +710,11 @@ export default function Home() {
                     </div>
                     <div>
                       <h3 className="text-2xl font-bold text-[#2D1B1F] font-sans">Our Soundtrack</h3>
-                      <p className="text-[#7D5A5E] font-sans">{songs.length} songs • Memories in melody</p>
+                      <p className="text-[#7D5A5E] font-sans">{songs.length} clips • Memories in video</p>
                     </div>
                   </div>
 
-                  {/* Hidden Audio Element */}
-                  <audio
-                    ref={audioRef}
-                    src={currentSong !== null ? songs[currentSong].src : undefined}
-                    onEnded={() => setIsPlaying(false)}
-                  />
+                  {/* Hidden Audio Element REMOVED */}
 
                   <div className="space-y-4">
                     {songs.map((song, i) => {
@@ -598,7 +726,7 @@ export default function Home() {
                           className={`rounded-xl p-4 flex items-center gap-4 cursor-pointer transition-all border ${isCurrent ? "bg-white border-pink-200 shadow-sm" : "bg-white/60 border-transparent hover:bg-white"}`}
                         >
                           <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${isCurrent ? "bg-[#FF1744] text-white" : "bg-[#FFE5EC] text-[#FF1744] group-hover:bg-[#FF1744] group-hover:text-white"}`}>
-                            {isCurrent && isPlaying ? <span className="text-xs">❚❚</span> : <span className="text-xs">▶</span>}
+                            {isCurrent ? <span className="text-xs">▶</span> : <span className="text-xs">▶</span>}
                           </div>
                           <div className="flex-1">
                             <p className={`font-semibold font-sans ${isCurrent ? "text-[#FF1744]" : "text-[#2D1B1F]"}`}>{song.title}</p>
@@ -623,7 +751,7 @@ export default function Home() {
               </div>
 
               {/* Future Plans */}
-              <div className="mb-16 fade-up">
+              {/* <div className="mb-16 fade-up">
                 <h3 className="text-center text-4xl font-bold text-[#2D1B1F] mb-4 font-sans">Our Future Adventures</h3>
                 <p className="text-center text-xl text-[#7D5A5E] mb-8 font-sans">Beautiful plans I&apos;m dreaming of with you</p>
                 <div className="grid md:grid-cols-3 gap-8">
@@ -642,10 +770,10 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </div> */}
 
               {/* Mystery Messages */}
-              {/* <div className="mb-16 fade-up">
+              <div className="mb-16 fade-up">
                 <h3 className="text-center text-4xl font-bold text-[#2D1B1F] mb-4 font-sans">Mystery Messages</h3>
                 <p className="text-center text-[#7D5A5E] mb-8 font-sans">Click each box to reveal a surprise ♥</p>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -674,7 +802,7 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-              </div> */}
+              </div>
 
               {/* Love Counter */}
               <div className="counter-section fade-up">

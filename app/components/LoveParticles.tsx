@@ -33,7 +33,7 @@ const COLORS: Record<Variant, string[]> = {
     roses: ["#FF1744", "#E91E63", "#FF4081", "#C2185B", "#AD1457"],
 };
 
-export default function LoveParticles({ variant = "hearts" }: { variant?: Variant }) {
+export default function LoveParticles({ variant = "hearts", enabled = true }: { variant?: Variant; enabled?: boolean }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const particlesRef = useRef<Particle[]>([]);
     const mouseRef = useRef({ x: -1000, y: -1000 });
@@ -62,6 +62,7 @@ export default function LoveParticles({ variant = "hearts" }: { variant?: Varian
     }, [variant]);
 
     useEffect(() => {
+        if (!enabled) return;
         const canvas = canvasRef.current;
         if (!canvas) return;
 
@@ -79,14 +80,9 @@ export default function LoveParticles({ variant = "hearts" }: { variant?: Varian
             mouseRef.current = { x: e.clientX, y: e.clientY };
         };
 
-        const handleClick = (e: MouseEvent) => {
-            for (let i = 0; i < 12; i++) {
-                particlesRef.current.push(createParticle(e.clientX, e.clientY, true));
-            }
-        };
+
 
         window.addEventListener("mousemove", handleMouseMove);
-        window.addEventListener("click", handleClick);
 
         let spawnTimer = 0;
         const animate = () => {
@@ -144,9 +140,8 @@ export default function LoveParticles({ variant = "hearts" }: { variant?: Varian
             cancelAnimationFrame(rafRef.current);
             window.removeEventListener("resize", resize);
             window.removeEventListener("mousemove", handleMouseMove);
-            window.removeEventListener("click", handleClick);
         };
-    }, [variant, createParticle]);
+    }, [variant, createParticle, enabled]);
 
     return (
         <canvas
