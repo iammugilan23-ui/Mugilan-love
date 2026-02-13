@@ -17,25 +17,25 @@ gsap.registerPlugin(ScrollTrigger);
 
 /* ────── Data ────── */
 const memories = [
-  { src: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&h=1000&fit=crop", title: "First Date", desc: "The coffee shop where it all began.", tag: "Where it started ☕" },
-  { src: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800&h=1000&fit=crop", title: "Paris Trip", desc: "Lost in the city of love.", tag: "City of Love 🗼" },
-  { src: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=800&h=1000&fit=crop", title: "Beach Sunset", desc: "Walking hand in hand by the ocean.", tag: "Golden Hour 🌅" },
-  { src: "https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=800&h=600&fit=crop", title: "Cozy Nights", desc: "Warm blankets and endless conversations.", tag: "Our Happy Place 🏠" },
-  { src: "https://images.unsplash.com/photo-1519167758481-83f29da8c686?w=800&h=1000&fit=crop", title: "Mountain Adventure", desc: "Conquering peaks together.", tag: "On Top of the World 🏔️" },
-  { src: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&h=1000&fit=crop", title: "Stargazing", desc: "Counting stars and making wishes.", tag: "Under the Stars ✨" },
+  { src: "/uploads/memories/memory-1.jpg", title: "First Date", desc: "The coffee shop where it all began.", tag: "Where it started ☕" },
+  { src: "/uploads/memories/memory-2.png", title: "Paris Trip", desc: "Lost in the city of love.", tag: "City of Love 🗼" },
+  { src: "/uploads/memories/memory-3.jpg", title: "Beach Sunset", desc: "Walking hand in hand by the ocean.", tag: "Golden Hour 🌅" },
+  { src: "/uploads/memories/memory-4.jpg", title: "Cozy Nights", desc: "Warm blankets and endless conversations.", tag: "Our Happy Place 🏠" },
+  // { src: "/uploads/memories/memory-5.jpg", title: "Mountain Adventure", desc: "Conquering peaks together.", tag: "On Top of the World 🏔️" },
+  // { src: "/uploads/memories/memory-6.jpg", title: "Stargazing", desc: "Counting stars and making wishes.", tag: "Under the Stars ✨" },
 ];
 
 const songs = [
-  { title: "Perfect", artist: "Ed Sheeran", duration: "4:23", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+  { title: "Nee Partha Paarvai", artist: "Mugilan", duration: "4:23", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
   { title: "A Thousand Years", artist: "Christina Perri", duration: "4:45", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
   { title: "All of Me", artist: "John Legend", duration: "4:29", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
   { title: "Thinking Out Loud", artist: "Ed Sheeran", duration: "4:41", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" },
 ];
 
 const futurePlans = [
-  { title: "Paris Trip", desc: "A romantic getaway to the city of love.", time: "Next Spring", img: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800&h=600&fit=crop", icon: <FaPlane /> },
-  { title: "Beach House", desc: "A week of sunsets, ocean waves, and quality time.", time: "Summer 2024", img: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=800&h=600&fit=crop", icon: <FaUmbrellaBeach /> },
-  { title: "Mountain Cabin", desc: "A cozy retreat in the mountains.", time: "Next Winter", img: "https://images.unsplash.com/photo-1519167758481-83f29da8c686?w=800&h=600&fit=crop", icon: <FaMountain /> },
+  { title: "Paris Trip", desc: "A romantic getaway to the city of love.", time: "Next Spring", img: "/uploads/plans/plan-1.jpg", icon: <FaPlane /> },
+  { title: "Beach House", desc: "A week of sunsets, ocean waves, and quality time.", time: "Summer 2024", img: "/uploads/plans/plan-2.jpg", icon: <FaUmbrellaBeach /> },
+  { title: "Mountain Cabin", desc: "A cozy retreat in the mountains.", time: "Next Winter", img: "/uploads/plans/plan-3.jpg", icon: <FaMountain /> },
 ];
 
 const mysteryMessages = [
@@ -541,7 +541,7 @@ export default function Home() {
                     <iframe
                       width="100%"
                       height="100%"
-                      src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+                      src="+"
                       title="Our Love Story Video"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -553,7 +553,7 @@ export default function Home() {
                       onClick={() => setShowVideo(true)}
                     >
                       <Image
-                        src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=1200&h=675&fit=crop"
+                        src="/uploads/surprise/video-thumbnail.jpg"
                         alt="Video thumbnail"
                         fill
                         className="object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
@@ -584,7 +584,7 @@ export default function Home() {
                   {/* Hidden Audio Element */}
                   <audio
                     ref={audioRef}
-                    src={currentSong !== null ? songs[currentSong].src : ""}
+                    src={currentSong !== null ? songs[currentSong].src : undefined}
                     onEnded={() => setIsPlaying(false)}
                   />
 
@@ -645,7 +645,7 @@ export default function Home() {
               </div>
 
               {/* Mystery Messages */}
-              <div className="mb-16 fade-up">
+              {/* <div className="mb-16 fade-up">
                 <h3 className="text-center text-4xl font-bold text-[#2D1B1F] mb-4 font-sans">Mystery Messages</h3>
                 <p className="text-center text-[#7D5A5E] mb-8 font-sans">Click each box to reveal a surprise ♥</p>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -674,7 +674,7 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </div> */}
 
               {/* Love Counter */}
               <div className="counter-section fade-up">
