@@ -18,29 +18,30 @@ gsap.registerPlugin(ScrollTrigger);
 /* ────── Data ────── */
 const memories = [
   {
-    src: "/uploads/memories/memory-1.jpg",
-    title: "Two Years of Us",
-    desc: "Celebrating our second birthday with smiles, laughter, and unforgettable love.",
-    tag: "Second Birthday Celebration 🎂"
+    "src": "/uploads/memories/memory-1.jpg",
+    "title": "First Meet",
+    "desc": "That first meeting felt like destiny gently introducing us. One smile, one look, and my heart found its home in you.",
+    "tag": "The moment our eyes met and my heart knew it was you"
   },
   {
-    src: "/uploads/memories/memory-2.png",
-    title: "Our First Long Journey",
-    desc: "Miles passed, hearts closer — our first long travel together full of love.",
-    tag: "First Long Travel 🌍"
+    "src": "/uploads/memories/memory-2.png",
+    "title": "Before Marriage Shoot",
+    "desc": "Every pose captured more than just pictures—it captured our promises, dreams, and the beautiful future we were stepping into together.",
+    "tag": "Living my dream pose with the love of my life"
   },
   {
-    src: "/uploads/memories/memory-3.jpg",
-    title: "Ride of Love",
-    desc: "Our first bike ride together, wrapped in wind, kisses, and happiness.",
-    tag: "First Bike Ride 🏍️"
+    "src": "/uploads/memories/memory-3.jpg",
+    "title": "Style Shoot",
+    "desc": "In every frame, our laughter and love spoke louder than words, turning moments into timeless memories of us.",
+    "tag": "Two hearts creating our own love story in every frame"
   },
   {
-    src: "/uploads/memories/memory-4.jpg",
-    title: "After So Long",
-    desc: "Meeting after a long time, sharing warmth, words, and silent emotions.",
-    tag: "Long Time No See 💞"
-  },
+    "src": "/uploads/memories/memory-4.jpg",
+    "title": "New Year Memories",
+    "desc": "As the year changed, my wish stayed the same—to keep loving you more with every new beginning we share.",
+    "tag": "Welcoming the new year with you by my side, always"
+  }
+
   // {
   //   src: "/uploads/memories/memory-5.jpg",
   //   title: "Birthday to Remember",
@@ -144,22 +145,22 @@ const mysteryMessages = [
 const stats = [
   {
     label: "Days of Togetherness",
-    value: 1775,
+    value: 329,
     sub: "Every day written in love"
   },
   {
     label: "Hours of Love",
-    value: 42600,
+    value: 7896,
     sub: "Moments that shaped our story"
   },
   {
     label: "Minutes of Memories",
-    value: 2556000,
+    value: 473760,
     sub: "Each minute held your smile"
   },
   {
     label: "Seconds of Forever",
-    value: 153360000,
+    value: 28425600,
     sub: "Every second, I chose you"
   }
 ];
